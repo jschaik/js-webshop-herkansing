@@ -1,0 +1,423 @@
+/* ============================================================
+   Webshop - startbestand van de docent
+   Verander niets aan dit bestand. 
+   Belangrijke classes die je met JavaScript aan of uit zet:
+     .verborgen  -> verbergt een element
+     .actief     -> maakt het hartje rood (alleen op .hartje)
+     .fout       -> maakt #melding rood
+   ============================================================ */
+
+:root {
+  --kleur-hoofd: #2d5bff;
+  --kleur-hoofd-donker: #1e40c4;
+  --kleur-hartje: #e63946;
+  --kleur-tekst: #1d2433;
+  --kleur-grijs: #6b7385;
+  --kleur-rand: #e3e6ee;
+  --kleur-achtergrond: #f5f6fa;
+  --kleur-wit: #ffffff;
+  --radius: 12px;
+  --schaduw: 0 2px 8px rgba(29, 36, 51, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Arial,
+    sans-serif;
+  background: var(--kleur-achtergrond);
+  color: var(--kleur-tekst);
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ===== Hulpclass: verbergen ===== */
+.verborgen {
+  display: none !important;
+}
+
+/* ===== Knoppen ===== */
+.knop {
+  font: inherit;
+  font-weight: 600;
+  border: 2px solid var(--kleur-hoofd);
+  background: var(--kleur-hoofd);
+  color: var(--kleur-wit);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.knop:hover {
+  background: var(--kleur-hoofd-donker);
+  border-color: var(--kleur-hoofd-donker);
+}
+
+.knop-licht {
+  background: var(--kleur-wit);
+  color: var(--kleur-hoofd);
+}
+
+.knop-licht:hover {
+  background: #eef2ff;
+  border-color: var(--kleur-hoofd);
+}
+
+.knop-klein {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
+/* ===== Bovenbalk ===== */
+.bovenbalk {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: var(--kleur-wit);
+  border-bottom: 1px solid var(--kleur-rand);
+}
+
+.logo {
+  font-size: 1.6rem;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--kleur-hoofd);
+}
+
+.navigatie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===== Inhoud ===== */
+.inhoud {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ===== Zoeken, filteren, sorteren ===== */
+.gereedschap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.gereedschap input,
+.gereedschap select {
+  font: inherit;
+  padding: 10px 14px;
+  border: 1px solid var(--kleur-rand);
+  border-radius: var(--radius);
+  background: var(--kleur-wit);
+  color: var(--kleur-tekst);
+}
+
+.gereedschap input {
+  flex: 1 1 260px;
+}
+
+.gereedschap select {
+  flex: 0 1 220px;
+  cursor: pointer;
+}
+
+.gereedschap input:focus,
+.gereedschap select:focus {
+  outline: 2px solid var(--kleur-hoofd);
+  outline-offset: 1px;
+}
+
+.titel {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+/* ===== Meldingen ===== */
+.melding {
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--kleur-grijs);
+  background: var(--kleur-wit);
+  border-radius: var(--radius);
+}
+
+.melding.fout {
+  color: #9b1c1c;
+  background: #fdecec;
+  font-weight: 600;
+}
+
+/* ===== Productkaarten ===== */
+.producten {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.kaart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--kleur-wit);
+  border-radius: var(--radius);
+  box-shadow: var(--schaduw);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+.kaart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(29, 36, 51, 0.14);
+}
+
+.kaart-foto {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #fafbfd;
+  padding: 12px;
+}
+
+.kaart-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px 18px;
+  flex: 1;
+}
+
+.kaart-categorie {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--kleur-hoofd);
+  background: #eef2ff;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.kaart-titel {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.kaart-prijs {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* EXTRA E3: korting */
+.oude-prijs {
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--kleur-grijs);
+  margin-right: 6px;
+}
+
+.kaart-korting {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--kleur-wit);
+  background: var(--kleur-hartje);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* EXTRA E2: knop op de kaart */
+.winkelwagen-toevoegen {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+/* ===== Hartje ===== */
+.hartje {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: var(--kleur-wit);
+  box-shadow: var(--schaduw);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #c9cdd6;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    color 0.15s;
+}
+
+.hartje:hover {
+  transform: scale(1.1);
+}
+
+.hartje.actief {
+  color: var(--kleur-hartje);
+}
+
+/* ===== Pop-up (details en winkelwagen) ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(29, 36, 51, 0.55);
+}
+
+.popup-venster {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--kleur-wit);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.popup-sluiten {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--kleur-achtergrond);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.popup-sluiten:hover {
+  background: var(--kleur-rand);
+}
+
+#popup-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.details-foto {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.details-titel {
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.details-prijs {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--kleur-hoofd);
+}
+
+.details-beschrijving {
+  color: var(--kleur-grijs);
+}
+
+.details-lijst {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.details-lijst li {
+  background: var(--kleur-achtergrond);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+/* ===== EXTRA E2: winkelwagen ===== */
+.winkelwagen-lijst {
+  list-style: none;
+  margin: 16px 0;
+}
+
+.winkelwagen-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--kleur-rand);
+}
+
+.winkelwagen-item span:first-child {
+  flex: 1;
+}
+
+.winkelwagen-totaal {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ===== Telefoon ===== */
+@media (max-width: 600px) {
+  .bovenbalk {
+    padding: 12px 16px;
+  }
+
+  .inhoud {
+    padding: 16px;
+  }
+
+  .gereedschap select,
+  .gereedschap input {
+    flex: 1 1 100%;
+  }
+
+  .producten {
+    grid-template-columns: 1fr;
+  }
+
+  .kaart-foto {
+    aspect-ratio: 4 / 3;
+  }
+}

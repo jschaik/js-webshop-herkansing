@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webshop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       LET OP: verander niets aan deze HTML en aan style.css.
+       Jullie schrijven alleen JavaScript in script.js.
+       Gebruik de id's hieronder om elementen te pakken,
+       bijvoorbeeld: document.querySelector("#zoekveld")
+       ============================================================ -->
+
+  <!-- ===== Bovenbalk ===== -->
+  <header class="bovenbalk">
+    <h1 class="logo">Web<span>shop</span></h1>
+
+    <nav class="navigatie">
+      <!-- US8: knop om terug te gaan naar alle producten -->
+      <button id="alle-producten-knop" class="knop knop-licht">Alle producten</button>
+
+      <!-- US8: knop naar de favorieten. Zet het aantal in #favorieten-aantal -->
+      <button id="favorieten-knop" class="knop">
+        &#9829; Favorieten (<span id="favorieten-aantal">0</span>)
+      </button>
+
+      <!-- EXTRA E2: winkelwagen. Haal class="verborgen" weg als je E2 doet -->
+      <button id="winkelwagen-knop" class="knop knop-licht verborgen">
+        Winkelwagen (<span id="winkelwagen-aantal">0</span>)
+      </button>
+    </nav>
+  </header>
+
+  <main class="inhoud">
+
+    <!-- ===== Zoeken, filteren en sorteren ===== -->
+    <section class="gereedschap">
+
+      <!-- US3: zoekveld -->
+      <input type="text" id="zoekveld" placeholder="Zoek een product...">
+
+      <!-- US4: categorieën. De andere <option>s maak je met JavaScript -->
+      <select id="categorie">
+        <option value="alle">Alle categorieën</option>
+      </select>
+
+      <!-- US5: sorteren -->
+      <select id="sorteren">
+        <option value="standaard">Standaard</option>
+        <option value="laag-hoog">Prijs laag - hoog</option>
+        <option value="hoog-laag">Prijs hoog - laag</option>
+      </select>
+
+      <!-- EXTRA E1: haal class="verborgen" weg als je E1 doet -->
+      <button id="wis-filters-knop" class="knop knop-licht verborgen">Wis filters</button>
+    </section>
+
+    <!-- Titel boven de producten. Verander de tekst bij US8,
+         bijvoorbeeld in "Mijn favorieten" -->
+    <h2 id="titel" class="titel">Alle producten</h2>
+
+    <!-- US3, US8, US10: meldingen zoals "Producten laden...",
+         "Geen producten gevonden" of een foutmelding.
+         Voor een foutmelding: voeg de class "fout" toe.
+         Geen melding? Voeg de class "verborgen" toe. -->
+    <p id="melding" class="melding">Producten laden...</p>
+
+    <!-- US2: hier zet je met JavaScript de productkaarten neer -->
+    <section id="producten" class="producten" aria-labelledby="titel"></section>
+
+  </main>
+
+
+  <!-- ===== US9: pop-up met details =====
+       Open:  haal de class "verborgen" weg bij #popup
+       Dicht: zet de class "verborgen" terug -->
+  <section id="popup" class="popup verborgen" role="dialog" aria-modal="true" aria-label="Productdetails">
+    <section class="popup-venster">
+      <button id="popup-sluiten" class="popup-sluiten" aria-label="Sluiten">&#10005;</button>
+
+      <!-- Hier zet je met JavaScript de details neer -->
+      <section id="popup-details"></section>
+    </section>
+  </section>
+
+
+  <!-- ===== EXTRA E2: winkelwagen =====
+       Open en dicht net als de pop-up, met de class "verborgen" -->
+  <section id="winkelwagen" class="popup verborgen" role="dialog" aria-modal="true" aria-label="Winkelwagen">
+    <section class="popup-venster">
+      <button id="winkelwagen-sluiten" class="popup-sluiten" aria-label="Sluiten">&#10005;</button>
+      <h2>Winkelwagen</h2>
+      <ul id="winkelwagen-lijst" class="winkelwagen-lijst"></ul>
+      <p class="winkelwagen-totaal">Totaal: <span id="winkelwagen-totaal">€ 0,00</span></p>
+    </section>
+  </section>
+
+
+  <!-- ============================================================
+       VOORBEELD: zo moet de HTML van één productkaart eruitzien.
+       Deze HTML maak je met JavaScript (met een template literal
+       of met createElement) en zet je in #producten.
+
+       <article class="kaart" data-id="1">
+         <img class="kaart-foto" src="THUMBNAIL" alt="TITLE">
+         <button class="hartje" data-id="1" aria-label="Favoriet">&#9829;</button>
+         <section class="kaart-info">
+           <span class="kaart-categorie">beauty</span>
+           <h3 class="kaart-titel">Essence Mascara Lash Princess</h3>
+           <p class="kaart-prijs">€ 9,99</p>
+         </section>
+       </article>
+
+       - Is het product een favoriet? Geef het hartje de class "actief".
+         Dan wordt het rood. (US6: gebruik classList.toggle("actief"))
+
+       - EXTRA E3 (korting): zet in .kaart-info, onder de prijs:
+           <span class="kaart-korting">-12%</span>
+         en de oude prijs zo:
+           <p class="kaart-prijs"><s class="oude-prijs">€ 11,35</s> € 9,99</p>
+
+       - EXTRA E2 (winkelwagen): zet in .kaart-info:
+           <button class="knop knop-klein winkelwagen-toevoegen" data-id="1">In winkelwagen</button>
+
+
+       VOORBEELD: zo moet de HTML van de details eruitzien (US9).
+       Deze HTML zet je in #popup-details.
+
+       <img class="details-foto" src="EERSTE FOTO UIT images" alt="TITLE">
+       <span class="kaart-categorie">beauty</span>
+       <h2 class="details-titel">Essence Mascara Lash Princess</h2>
+       <p class="details-prijs">€ 9,99</p>
+       <p class="details-beschrijving">DESCRIPTION</p>
+       <ul class="details-lijst">
+         <li>Beoordeling: 4.94 / 5</li>
+         <li>Voorraad: 5 stuks</li>
+       </ul>
+
+
+       VOORBEELD: één regel in de winkelwagen (EXTRA E2).
+       Deze HTML zet je in #winkelwagen-lijst.
+
+       <li class="winkelwagen-item">
+         <span>Essence Mascara Lash Princess</span>
+         <span>€ 9,99</span>
+         <button class="knop knop-klein knop-licht winkelwagen-verwijderen" data-id="1">Verwijder</button>
+       </li>
+       ============================================================ -->
+
+  <script src="script.js"></script>
+</body>
+
+</html>
